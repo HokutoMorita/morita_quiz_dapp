@@ -4,13 +4,12 @@ const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
 
 describe("PenNFT", () => {
     const deployMyNftFixture = async () => {
-        const PenNFT = await ethers.getContractFactory("PenNFT");
-        // const penNFT = await PenNFT.deploy(0);
-        // const penNFT =  await upgrades.deployProxy(PenNFT)
-        const penNFT =  await upgrades.deployProxy(PenNFT, [], {
-            kind: 'uups',
-            initializer: "initialize",
-          });
+        const PenNFT = await ethers.getContractFactory("TmpPenNFT");
+        const penNFT = await PenNFT.deploy();
+        // const penNFT =  await upgrades.deployProxy(PenNFT, [], {
+        //     kind: 'uups',
+        //     initializer: "initialize",
+        //   });
 
         const initTokenId = await penNFT.getTokenCounter();
         return { penNFT, initTokenId };

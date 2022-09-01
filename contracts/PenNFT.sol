@@ -33,18 +33,23 @@ contract PenNFT is Initializable, ERC721Upgradeable, ERC721BurnableUpgradeable, 
         __UUPSUpgradeable_init();
     }
 
-    function safeMint(address to) public {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
-        emit NftMinted(tokenId);
-    }
-
     function _authorizeUpgrade(address newImplementation)
         internal
         onlyOwner
         override
     {}
+
+    function safeMint() public {
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _safeMint(msg.sender, tokenId);
+        emit NftMinted(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        return TOKEN_URL;
+    }
 
     function getTokenCounter() public view returns (uint256) {
         return _tokenIdCounter.current();

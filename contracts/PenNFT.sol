@@ -18,12 +18,12 @@ contract PenNFT is Initializable, ERC721Upgradeable, ERC721BurnableUpgradeable, 
     event NftMinted(uint256 indexed tokenId);
 
 
-    /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
-        _disableInitializers();
-    }
+    // /// @custom:oz-upgrades-unsafe-allow constructor
+    // constructor() {
+    //     _disableInitializers();
+    // }
 
-    function initialize() initializer public {
+    function initialize() public initializer {
         __ERC721_init("PenNFT", "PNT");
         __ERC721Burnable_init();
 
